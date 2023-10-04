@@ -1,9 +1,9 @@
 <?php 
 
-namespace Siktec\PhpRedis\Model\Traits;
+namespace Siktec\Dmm\Model\Traits;
 
 use \ReflectionClass;
-use \Siktec\PhpRedis\Internal\Std;
+use \Siktec\Dmm\Internal\Std;
 
 trait ClassAttributesParserTrait {
 

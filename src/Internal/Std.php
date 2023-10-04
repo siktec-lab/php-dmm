@@ -1,8 +1,8 @@
 <?php 
 
-namespace Siktec\PhpRedis\Internal;
+namespace Siktec\Dmm\Internal;
 
-use \Siktec\PhpRedis\Exceptions;
+use \Siktec\Dmm\Exceptions;
 
 class Std
 {
@@ -54,7 +54,7 @@ class Std
         $json = json_encode($data, $pretty ? JSON_PRETTY_PRINT : 0);
 
         if ($json === false && $throw) {
-            throw new Exceptions\PhpRedisException(
+            throw new Exceptions\DmmException(
                 ["JSON", json_last_error_msg()], 
                 131
             );

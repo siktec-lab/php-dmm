@@ -1,10 +1,10 @@
 <?php 
 
-namespace Siktec\PhpRedis\Model;
+namespace Siktec\Dmm\Model;
 
-use \Siktec\PhpRedis\Exceptions;
-use Siktec\PhpRedis\Internal\Std;
-use Siktec\PhpRedis\Model\Components;
+use \Siktec\Dmm\Exceptions;
+use Siktec\Dmm\Internal\Std;
+use Siktec\Dmm\Model\Components;
 
 abstract class Structure implements IBaseModel {
 

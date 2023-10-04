@@ -1,8 +1,8 @@
 <?php
 
-namespace Siktec\PhpRedis\Server;
+namespace Siktec\Dmm\Server;
 
-use Siktec\PhpRedis\Exceptions\ConnectionException;
+use Siktec\Dmm\Exceptions\ConnectionException;
 
 class Connection
 {

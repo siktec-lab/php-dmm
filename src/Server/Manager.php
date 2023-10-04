@@ -1,9 +1,9 @@
 <?php
 
-namespace Siktec\PhpRedis\Server;
+namespace Siktec\Dmm\Server;
 
-use Siktec\PhpRedis\Exceptions;
-use Siktec\PhpRedis\Server\Connection;
+use Siktec\Dmm\Exceptions;
+use Siktec\Dmm\Server\Connection;
 
 class Manager
 {

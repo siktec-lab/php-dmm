@@ -1,10 +1,10 @@
 <?php
 
-namespace Siktec\PhpRedis\Model\Components;
+namespace Siktec\Dmm\Model\Components;
 
-use \Siktec\PhpRedis\Exceptions;
-use \Siktec\PhpRedis\Model\Traits;
-use \Siktec\PhpRedis\Model\Attr;
+use \Siktec\Dmm\Exceptions;
+use \Siktec\Dmm\Model\Traits;
+use \Siktec\Dmm\Model\Attr;
 
 class Storage {
 

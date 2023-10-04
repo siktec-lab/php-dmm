@@ -1,6 +1,6 @@
 <?php 
 
-namespace Siktec\PhpRedis\Model;
+namespace Siktec\Dmm\Model;
 
 
 // interface IBaseModel extends \JsonSerializable {

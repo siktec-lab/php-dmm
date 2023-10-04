@@ -1,8 +1,8 @@
 <?php
 
-namespace Siktec\PhpRedis\Model\Components;
+namespace Siktec\Dmm\Model\Components;
 
-use \Siktec\PhpRedis\Exceptions;
+use \Siktec\Dmm\Exceptions;
 
 class Dump {
 

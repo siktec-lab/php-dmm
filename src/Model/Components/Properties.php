@@ -1,11 +1,11 @@
 <?php
 
-namespace Siktec\PhpRedis\Model\Components;
+namespace Siktec\Dmm\Model\Components;
 
-use \Siktec\PhpRedis\Exceptions;
-use \Siktec\PhpRedis\Model\Traits;
-use \Siktec\PhpRedis\Model\Attr;
-use \Siktec\PhpRedis\Model\IBaseModel;
+use \Siktec\Dmm\Exceptions;
+use \Siktec\Dmm\Model\Traits;
+use \Siktec\Dmm\Model\Attr;
+use \Siktec\Dmm\Model\IBaseModel;
 use Stringable;
 
 class Properties {

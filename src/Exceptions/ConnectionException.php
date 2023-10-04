@@ -1,10 +1,10 @@
 <?php 
 
-namespace Siktec\PhpRedis\Exceptions;
+namespace Siktec\Dmm\Exceptions;
 
 use \Exception;
 
-class ConnectionException extends PhpRedisException
+class ConnectionException extends DmmException
 {
 
     protected int $DEFAULT_CODE    = 140;

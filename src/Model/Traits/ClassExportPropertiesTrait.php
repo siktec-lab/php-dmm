@@ -1,11 +1,11 @@
 <?php 
 
-namespace Siktec\PhpRedis\Model\Traits;
+namespace Siktec\Dmm\Model\Traits;
 
 use ReflectionClass;
-use Siktec\PhpRedis\Internal\Std;
-use Siktec\PhpRedis\Model\IBaseModel;
-use Siktec\PhpRedis\Model\Structure;
+use Siktec\Dmm\Internal\Std;
+use Siktec\Dmm\Model\IBaseModel;
+use Siktec\Dmm\Model\Structure;
 
 
 trait ClassExportPropertiesTrait {
@@ -14,8 +14,8 @@ trait ClassExportPropertiesTrait {
     {
         switch (gettype($value)) {
             case 'object':
-                return $value instanceof IntModel ?
-                            $value->toArray($external, $generated) :
+                return $value instanceof IBaseModel ?
+                            $value->toArray($external, $generated, false) :
                             Std::objectToArray($value);
             case 'string':
             case 'int':

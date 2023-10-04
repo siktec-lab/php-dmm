@@ -1,6 +1,6 @@
 <?php 
 
-namespace Siktec\PhpRedis\Model\Attr;
+namespace Siktec\Dmm\Model\Attr;
 
 use Attribute;
 

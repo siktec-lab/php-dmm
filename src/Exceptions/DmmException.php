@@ -1,10 +1,10 @@
 <?php 
 
-namespace Siktec\PhpRedis\Exceptions;
+namespace Siktec\Dmm\Exceptions;
 
 use \Exception;
 
-abstract Class PhpRedisException extends Exception {
+abstract Class DmmException extends Exception {
 
     protected int $DEFAULT_CODE          = 130;
     protected string $DEFAULT_PARAM      = 'UNKNOWN';
@@ -16,7 +16,7 @@ abstract Class PhpRedisException extends Exception {
 
 
     /**
-     * PhpRedisException constructor.
+     * DmmException constructor.
      * 
      * @param array $data nothind specific for this exception
      * @param ?int $code the error code (default 130)

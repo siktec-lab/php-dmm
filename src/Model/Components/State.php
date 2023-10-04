@@ -1,6 +1,6 @@
 <?php
 
-namespace Siktec\PhpRedis\Model\Components;
+namespace Siktec\Dmm\Model\Components;
 
 class State {
 

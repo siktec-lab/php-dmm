@@ -1,7 +1,7 @@
 <?php 
 
-use Siktec\PhpRedis\Model\Attr;
-use Siktec\PhpRedis\Model;
+use Siktec\Dmm\Model\Attr;
+use Siktec\Dmm\Model;
 
 #[Attr\Connection(name: 'main')]
 class User extends Model\Structure {

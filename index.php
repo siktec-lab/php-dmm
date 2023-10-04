@@ -4,9 +4,9 @@
 // autoload
 require_once __DIR__ . '/vendor/autoload.php';
 
-use Siktec\PhpRedis\Server\Manager;
-use Siktec\PhpRedis\Model\Attr;
-use Siktec\PhpRedis\Model;
+use Siktec\Dmm\Server\Manager;
+use Siktec\Dmm\Model\Attr;
+use Siktec\Dmm\Model;
 
 Manager::defineConnection(
     name : 'main',

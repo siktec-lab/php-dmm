@@ -1,10 +1,10 @@
 <?php 
 
-namespace Siktec\PhpRedis\Exceptions;
+namespace Siktec\Dmm\Exceptions;
 
 use \Exception;
 
-class ModelDeclarationException extends PhpRedisException
+class ModelDeclarationException extends DmmException
 {
 
     protected int $DEFAULT_CODE    = 150;
