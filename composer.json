@@ -1,7 +1,7 @@
 {
     "name": "siktec/php-ddm",
     "description": "Data Model Map - A better way to map your data models to your database",
-    "license": "GNU GPL v3",
+    "license": "GPL-3.0-only",
     "keywords": [
         "data model", "database", "model", "ddm",
         "orm", "object relational mapping"
