@@ -16,9 +16,6 @@ docker-compose.yml
 docker-compose.override.yml
 .env
 
-# Composer ignores
-/vendor/
-composer.lock
-
 # phpunit caches
 /.phpunit.result.cache
+/.phpunit.cache
