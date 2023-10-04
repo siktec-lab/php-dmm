@@ -1,0 +1,16 @@
+{
+    "name": "siktec/php-redis",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Siktec\\PhpRedis\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Shlomo Hassid",
+            "email": "shlomohassid@gmail.com"
+        }
+    ],
+    "require": {}
+}
