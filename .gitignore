@@ -1,0 +1,24 @@
+
+/local/
+
+.vscode/
+*.code-workspace
+
+# PHP ignores
+/vendor/
+composer.lock
+composer.phar
+.env
+
+# Docker ignores
+/docker/
+docker-compose.yml
+docker-compose.override.yml
+.env
+
+# Composer ignores
+/vendor/
+composer.lock
+
+# phpunit caches
+/.phpunit.result.cache
