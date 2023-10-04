@@ -19,3 +19,7 @@ docker-compose.override.yml
 # phpunit caches
 /.phpunit.result.cache
 /.phpunit.cache
+
+# php-cs
+/.php_cs.cache
+phpcs.result

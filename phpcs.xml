@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+
+  <!-- Arguments: -->
+  <!-- <arg name="colors" /> -->
+  <arg name="extensions" value="php,inc" />
+  <arg name="parallel" value="16" />
+  <arg value="psv"/>
+
+  <!-- Dont show warnings -->
+  <!-- <arg name="warning-severity" value="0"/> -->
+
+  <!-- Include files and folders -->
+  <file>src</file>
+  <file>tests</file>
+  
+  <!-- Exclude files and folders -->
+  <exclude-pattern>/vendor/</exclude-pattern>
+
+  <!-- Rules: -->
+  <rule ref="PSR12"/>
+
+  <!-- Exclude rules which are dumb -->
+  <rule ref="PSR12">
+    <exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
+    <exclude name="PSR2.Classes.PropertyDeclaration.Underscore" />
+    <exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
+    <exclude name="PSR12.Classes.ClassInstantiation.MissingParentheses" />
+    <exclude name="PSR12.Files.ImportStatement.LeadingSlash" /> 
+  </rule>
+
+  <!-- Specific rules -->
+  <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
+    <exclude-pattern>/tests/</exclude-pattern>
+  </rule>
+
+  <!-- Add rules from slevomat https://cylab.be/blog/169/detect-unnecessary-use-statements-with-php-codesniffer -->
+  <config name="installed_paths" value="../../slevomat/coding-standard"/>
+  <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
+
+</ruleset>
