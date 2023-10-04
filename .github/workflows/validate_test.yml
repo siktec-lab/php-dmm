@@ -28,8 +28,15 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
+    
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
+      
+    - name: Using PHP version
+      run: php -v
 
     - name: Run test suite
       run: composer run-script test
+
+    - name: Coding Standards
+      run: composer run-script phpcs
