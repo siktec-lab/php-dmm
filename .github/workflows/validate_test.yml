@@ -1,22 +1,41 @@
 name: Validate and Test 
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  build:
+
+  test:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        php-versions: [ '8.1', '8.2' ]
+    name: PHP ${{ matrix.php-versions }} Test
     steps:
+    
     - uses: actions/checkout@v3
-
+    - name: PHP Install
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: intl, redis, pcntl
+        tools: composer:v2
+      env:
+        fail-fast: true
+      
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
@@ -25,13 +44,13 @@ jobs:
       uses: actions/cache@v3
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.os }}-php-${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-php-
+          ${{ runner.os }}-php-${{ matrix.php-versions }}-
     
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-      
+
     - name: Using PHP version
       run: php -v
 
