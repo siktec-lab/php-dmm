@@ -6,8 +6,8 @@ use \Siktec\Dmm\Exceptions;
 use \Siktec\Dmm\Model\Traits;
 use \Siktec\Dmm\Model\Attr;
 
-class Storage {
-
+class Storage
+{
     use Traits\ClassAttributesParserTrait;
 
     public const ATTR_CONNECTION_NAME = "name";
@@ -25,18 +25,17 @@ class Storage {
         }
     }
 
-    public function parse(bool $throw = true) : bool
+    public function parse(bool $throw = true): bool
     {
         $connection_meta = $this->extractClassMeta(Attr\Connection::class, $this->ref);
 
         if (!array_key_exists(self::ATTR_CONNECTION_NAME, $connection_meta)) {
-
             if (!$throw) {
                 return false;
             }
-            
+
             throw new Exceptions\ModelDeclarationException(
-                [get_class($this->ref), Attr\Connection::class], 
+                [get_class($this->ref), Attr\Connection::class],
                 151
             );
         }
@@ -46,19 +45,18 @@ class Storage {
         return true;
     }
 
-    public function connection(?string $name = null) : string
+    public function connection(?string $name = null): string
     {
         return $name ? $name === $this->connection : $this->connection;
     }
 
-    public function key() : string
+    public function key(): string
     {
         return $this->key;
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         return "{$this->connection}:{$this->key}";
     }
 }
-    

@@ -8,14 +8,14 @@ use \Siktec\Dmm\Model\Attr;
 use \Siktec\Dmm\Model\IBaseModel;
 use Stringable;
 
-class Properties {
-    
+class Properties
+{
     use Traits\ClassAttributesParserTrait;
 
     public const ATTR_PROPERTY_NAME = "name";
 
     private ?object $ref        = null;
-    private int   $total        = 0;
+    private int $total        = 0;
     private array $properties   = [];
     private array $in_out       = [];
     private array $out_in       = [];
@@ -31,7 +31,7 @@ class Properties {
         }
     }
 
-    public function parse() : int
+    public function parse(): int
     {
 
         $attr_properties = $this->extractClassPropertiesMeta(Attr\Property::class, $this->ref);
@@ -43,7 +43,7 @@ class Properties {
         foreach ($attr_properties as $in => $values) {
             $this->in_out[$in] = $values[self::ATTR_PROPERTY_NAME] ?: $in;
         }
-        
+
         $this->total        = count($properties);
         $this->properties   = $properties;
         $this->out_in       = array_flip($this->in_out);
@@ -54,15 +54,14 @@ class Properties {
         return $this->total;
     }
 
-    private function parseNested() : void
+    private function parseNested(): void
     {
 
         foreach ($this->properties as &$property) {
-
             //Only one type is allowed:
             if (count($property["type"]) !== 1) {
                 throw new Exceptions\ModelDeclarationException(
-                    [get_class($this->ref), implode(",", $property["type"])], 
+                    [get_class($this->ref), implode(",", $property["type"])],
                     152
                 );
             }
@@ -80,15 +79,17 @@ class Properties {
         }
     }
 
-    public function total() : int {
+    public function total(): int
+    {
         return $this->total;
     }
 
-    public function names(bool $external_keys = false) : array {
+    public function names(bool $external_keys = false): array
+    {
         return $external_keys ? $this->out_in : $this->in_out;
     }
 
-    public function translate(string|array $name, bool $to_external) : string|array|null
+    public function translate(string|array $name, bool $to_external): string|array|null
     {
         if (is_array($name)) {
             $translated = [];
@@ -99,63 +100,61 @@ class Properties {
             }
             return $translated;
         }
-        return $to_external ? 
-            $this->in_out[$name] ?? null : 
+        return $to_external ?
+            $this->in_out[$name] ?? null :
             $this->out_in[$name] ?? null;
     }
 
-    public function toExternal(string|array $name) : string|array|null
+    public function toExternal(string|array $name): string|array|null
     {
         return $this->translate($name, true);
     }
 
-    public function toInternal(string|array $name) : string|array|null
+    public function toInternal(string|array $name): string|array|null
     {
         return $this->translate($name, false);
     }
 
-    public function isSaved(string $name, bool $external = false) : bool
+    public function isSaved(string $name, bool $external = false): bool
     {
         $name = $external ? $this->toInternal($name) : $name;
         return in_array($name, $this->saved);
     }
 
-    public function isGenerated(string $name, bool $external = false) : bool
+    public function isGenerated(string $name, bool $external = false): bool
     {
         $name = $external ? $this->toInternal($name) : $name;
         return in_array($name, $this->generated);
     }
 
-    public function isNested(string $name, bool $external = false) : bool
+    public function isNested(string $name, bool $external = false): bool
     {
         $name = $external ? $this->toInternal($name) : $name;
         return $this->properties[$name]["nested"];
     }
 
-    public function getSaved() : array
+    public function getSaved(): array
     {
         return $this->saved;
     }
 
-    public function getGenerated() : array
+    public function getGenerated(): array
     {
         return $this->generated;
     }
 
-    public function getNested() : array
+    public function getNested(): array
     {
         return $this->nested;
     }
-    
+
     public function values(
-        bool $external = false, 
-        bool $generated = true, 
+        bool $external = false,
+        bool $generated = true,
         bool $nested = true
-    ) : array 
-    {
+    ): array {
         $values = [];
         foreach ($this->properties as $in_name => $property) {
-
             $is_generated = $this->isGenerated($in_name);
             $is_nested    = $this->isNested($in_name);
             $is_array     = $property["type"] === "array";
@@ -203,12 +202,11 @@ class Properties {
 
             //Simple value:
             $values[$name] = $value;
-
         }
         return $values;
     }
 
-    public function filter(array $data, bool $external = false) : array
+    public function filter(array $data, bool $external = false): array
     {
         return array_intersect_key(
             $external ? $this->translate($data, false) : $data,
@@ -216,13 +214,13 @@ class Properties {
         );
     }
 
-    public function initNested(string $internal_name, array|object|null $data, bool $external = false) : bool
+    public function initNested(string $internal_name, array|object|null $data, bool $external = false): bool
     {
-        
+
         // Check if the property is nested which also means it is a model and it exists:
         if (!$this->isNested($internal_name)) {
             throw new Exceptions\ModelDeclarationException(
-                [get_class($this->ref), $internal_name, "Nested"], 
+                [get_class($this->ref), $internal_name, "Nested"],
                 153
             );
         }
@@ -235,15 +233,15 @@ class Properties {
             if (!$is_nullable) {
                 throw new Exceptions\ModelDeclarationException(
                     [
-                        get_class($this->ref), 
-                        $internal_name, 
+                        get_class($this->ref),
+                        $internal_name,
                         $definition["type"],
                         "NULL"
-                    ], 
+                    ],
                     154
                 );
             }
-            $this->ref->{$internal_name} = null;           
+            $this->ref->{$internal_name} = null;
             return true;
         }
 
@@ -252,11 +250,11 @@ class Properties {
             if (!$data instanceof $definition["type"]) {
                 throw new Exceptions\ModelDeclarationException(
                     [
-                        get_class($this->ref), 
-                        $internal_name, 
+                        get_class($this->ref),
+                        $internal_name,
                         $definition["type"],
                         get_class($data)
-                    ], 
+                    ],
                     154
                 );
             }
@@ -275,11 +273,11 @@ class Properties {
         // handle other data types:
         throw new Exceptions\ModelDeclarationException(
             [
-                get_class($this->ref), 
-                $internal_name, 
+                get_class($this->ref),
+                $internal_name,
                 $definition["type"],
                 gettype($data)
-            ], 
+            ],
             154
         );
     }
@@ -290,11 +288,11 @@ class Properties {
         $i = 0;
         foreach ($this->properties as $internal => $property) {
             $external = $this->toExternal($internal);
-            $str[] = "\n\t\t".(++$i).
-                            ") [{$property["type"]}]". 
-                            ": {$internal} => {$external}".
-                            ($this->isSaved($internal) ? " (saved)" : "").
-                            ($this->isGenerated($internal) ? " (generated)" : "").
+            $str[] = "\n\t\t" . (++$i) .
+                            ") [{$property["type"]}]" .
+                            ": {$internal} => {$external}" .
+                            ($this->isSaved($internal) ? " (saved)" : "") .
+                            ($this->isGenerated($internal) ? " (generated)" : "") .
                             ($this->isNested($internal) ? " (nested)" : "");
         }
         return implode("", $str);

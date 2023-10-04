@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Siktec\Dmm\Exceptions;
 
@@ -6,7 +6,6 @@ use \Exception;
 
 class ModelDeclarationException extends DmmException
 {
-
     protected int $DEFAULT_CODE    = 150;
     protected array $ERROR_MESSAGE = [
         150 => ["An error occurred while declaring model '%s'", 1],
@@ -18,11 +17,11 @@ class ModelDeclarationException extends DmmException
 
     /**
      * ModelDeclarationException constructor.
-     * 
+     *
      * @param string|array $model the name of the model
      * @param int|null $code the error code (default 150)
      * @param Exception|null $previous the previous exception
-     * 
+     *
      * @return self
      */
     public function __construct(
@@ -31,8 +30,8 @@ class ModelDeclarationException extends DmmException
         ?Exception $previous = null
     ) {
         parent::__construct(
-            is_array($model) ? $model : [$model], 
-            $code, 
+            is_array($model) ? $model : [$model],
+            $code,
             $previous
         );
     }

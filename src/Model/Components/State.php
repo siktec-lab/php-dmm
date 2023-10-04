@@ -2,17 +2,17 @@
 
 namespace Siktec\Dmm\Model\Components;
 
-class State {
-
+class State
+{
     private ?object $ref     = null;
-    private bool  $loaded   = false;
+    private bool $loaded   = false;
     private array $validation = [];
 
     public function __construct(?object $ref = null)
     {
         $this->ref = $ref;
     }
-    public function reset() : void
+    public function reset(): void
     {
         // Set state of self:
         $this->loaded   = false;
@@ -24,17 +24,16 @@ class State {
                 $this->ref->{$nest}->_state->reset();
             }
         }
-
     }
 
-    public function loaded(bool $status) : void
+    public function loaded(bool $status): void
     {
         $this->loaded = $status;
     }
 
-    public function isLoaded(bool $nested = true, bool $allow_null = true) : bool
+    public function isLoaded(bool $nested = true, bool $allow_null = true): bool
     {
-        // Early return if not loaded: 
+        // Early return if not loaded:
         if (!$nested || !$this->loaded) {
             return $this->loaded;
         }
@@ -64,12 +63,12 @@ class State {
         return true;
     }
 
-    final public function hasValidation(bool $nested = true) : bool
+    final public function hasValidation(bool $nested = true): bool
     {
         return !empty($this->validation($nested));
     }
 
-    final public function invalid(string $property, string $message) : void
+    final public function invalid(string $property, string $message): void
     {
         if (!array_key_exists($property, $this->validation)) {
             $this->validation[$property] = [];
@@ -79,7 +78,7 @@ class State {
         $this->loaded = false;
     }
 
-    final public function resetValidation(bool $nested = true) : void
+    final public function resetValidation(bool $nested = true): void
     {
         $this->validation = [];
         foreach ($this->ref->_properties->getNested() as $nest) {
@@ -89,14 +88,14 @@ class State {
         }
     }
 
-    final public function validation() : array
-    {   
+    final public function validation(): array
+    {
         $validation = $this->validation;
         foreach ($this->ref->_properties->getNested() as $nest) {
             if (isset($this->ref->{$nest})) {
                 $nest_validation = $this->ref->{$nest}->_state->validation();
                 foreach ($nest_validation as $property => $errors) {
-                    $key = $nest.".".$property;
+                    $key = $nest . "." . $property;
                     if (!array_key_exists($key, $validation)) {
                         $validation[$key] = [];
                     }
@@ -107,12 +106,12 @@ class State {
         return $validation;
     }
 
-    final public function validationFor(string $property) : array
+    final public function validationFor(string $property): array
     {
         return $this->validation[$property] ?? [];
     }
 
-    final public function validationMessages() : array
+    final public function validationMessages(): array
     {
         $messages = [];
         foreach ($this->validation as $property => $errors) {
@@ -123,4 +122,3 @@ class State {
         return $messages;
     }
 }
-    

@@ -1,14 +1,13 @@
-<?php 
+<?php
 
 namespace Siktec\Dmm\Model\Traits;
 
 use \ReflectionClass;
 use \Siktec\Dmm\Internal\Std;
 
-trait ClassAttributesParserTrait {
-
-
-    private function extractClassMeta(object|string $attribute_class, ?object $of = null) : array
+trait ClassAttributesParserTrait
+{
+    private function extractClassMeta(object|string $attribute_class, ?object $of = null): array
     {
         $of = $of ?? $this;
         $target = new ReflectionClass($of);
@@ -24,8 +23,7 @@ trait ClassAttributesParserTrait {
     private function extractClassPropertiesMeta(
         object|string $attribute_class,
         ?object $of = null
-    ) : array
-    {
+    ): array {
         $of = $of ?? $this;
         $target = new ReflectionClass($of);
         $meta = [];
@@ -39,21 +37,20 @@ trait ClassAttributesParserTrait {
         return $meta;
     }
 
-    private function extractClassProperties(array $properties = [], ?object $of = null) : array
-    {   
+    private function extractClassProperties(array $properties = [], ?object $of = null): array
+    {
         $of = $of ?? $this;
         $target = new ReflectionClass($of);
         $meta = [];
 
         foreach ($target->getProperties() as $property) {
-
             $name = $property->getName();
 
             // Skip properties that are not in the list:
             if ($properties && !in_array($name, $properties)) {
                 continue;
             }
-            
+
             $meta[$name] = [
                 "name"       => $name,
                 "default"    => $property->isDefault() ? $property->getDefaultValue() : null,

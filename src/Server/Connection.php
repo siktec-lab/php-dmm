@@ -6,7 +6,6 @@ use Siktec\Dmm\Exceptions\ConnectionException;
 
 class Connection
 {
-
     private string $name;
 
     private string $host;
@@ -42,8 +41,7 @@ class Connection
         int     $retry_interval = 0,
         float   $read_timeout   = 0.0,
         array   $context        = []
-    )
-    {
+    ) {
         $this->name         = strtolower($name);
         $this->should_persist = $persistant;
         $this->host         = $host;
@@ -64,7 +62,7 @@ class Connection
 
     /**
      * check is this connection is persistant
-     * 
+     *
      * @return bool
      */
     public function isPersistant(): bool
@@ -74,7 +72,7 @@ class Connection
 
     /**
      * check if this connection is connected
-     * 
+     *
      * @return bool
      */
     public function isConnected(): bool
@@ -84,11 +82,12 @@ class Connection
 
     /**
      * establish a connection:
-     * 
+     *
      * @return bool
      * @throws /RedisException
      */
-    private function _connect() : bool {
+    private function _connect(): bool
+    {
         $this->persistant = false;
         return $this->redis->connect(
             $this->host,
@@ -101,7 +100,8 @@ class Connection
         );
     }
 
-    private function _pconnect() {
+    private function _pconnect()
+    {
         $this->persistant = true;
         return $this->redis->pconnect(
             $this->host,
@@ -115,7 +115,7 @@ class Connection
     }
     /**
      * establish a connection to this connection
-     * 
+     *
      * @return \Redis
      * @throws ConnectionException if the connection could not be established
      */
@@ -142,7 +142,7 @@ class Connection
     }
 
     // string
-    public function __toString() : string
+    public function __toString(): string
     {
         return sprintf(
             'Connection %s to %s:%s [persistant: %s, connected: %s, id: %s]',
@@ -154,6 +154,4 @@ class Connection
             $this->id
         );
     }
-
-
 }

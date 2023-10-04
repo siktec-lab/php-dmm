@@ -14,11 +14,11 @@ class ConnectionException extends DmmException
 
     /**
      * ConnectionException constructor.
-     * 
+     *
      * @param string|array $name
      * @param int|null $code the error code (default 140)
      * @param Exception|null $previous the previous exception
-     * 
+     *
      * @return self
      */
     public function __construct(
@@ -27,8 +27,8 @@ class ConnectionException extends DmmException
         ?Exception   $previous = null
     ) {
         parent::__construct(
-            is_array($name) ? $name : [$name], 
-            $code, 
+            is_array($name) ? $name : [$name],
+            $code,
             $previous
         );
     }

@@ -2,10 +2,8 @@
 
 namespace Siktec\Dmm\Model\Components;
 
-use \Siktec\Dmm\Exceptions;
-
-class Dump {
-
+class Dump
+{
     private ?object $ref     = null;
 
     public function __construct(?object $ref = null)
@@ -13,7 +11,7 @@ class Dump {
         $this->ref = $ref;
     }
 
-    public function composition() : string
+    public function composition(): string
     {
         $str = "Model: " . get_class($this->ref);
         $str .= "\n\tStorage: " . $this->ref->_storage;
@@ -21,7 +19,7 @@ class Dump {
         return $str;
     }
 
-    public function values() : string
+    public function values(): string
     {
         $values = $this->ref->_properties->values(
             external : false,
@@ -30,7 +28,7 @@ class Dump {
         );
 
         $str = "Model: " . get_class($this->ref);
-        
+
         foreach ($values as $key => $value) {
             $str .= "\n\t" . $key . ": " . $this->valueToStr($value, 1);
         }
@@ -38,37 +36,27 @@ class Dump {
         return $str;
     }
 
-    private function valueToStr(mixed $value, int $ident = 0) : string {
+    private function valueToStr(mixed $value, int $ident = 0): string
+    {
         $str = "";
 
         // First level indentation:
         if (is_array($value)) {
-
             $str .= "[";
             foreach ($value as $key => $val) {
                 $str .= "\n" . str_repeat("\t", $ident + 1) . $key . ": " . $this->valueToStr($val, $ident + 1);
             }
             $str .= "\n" . str_repeat("\t", $ident) . "]";
-
         } elseif (is_null($value)) {
-
             $str .= "null";
-
         } elseif (is_bool($value)) {
-
             $str .= $value ? "TRUE" : "FALSE";
-
         } elseif (is_object($value)) {
-
             $str .= get_class($value);
-
         } else {
-
             $str .= $value;
-
         }
 
         return $str;
-
     }
 }
