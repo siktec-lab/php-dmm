@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Siktec\Dmm\Exceptions;
 
@@ -6,7 +6,6 @@ use \Exception;
 
 class ConnectionException extends DmmException
 {
-
     protected int $DEFAULT_CODE    = 140;
     protected array $ERROR_MESSAGE = [
         140 => ["An error occurred while connecting to Redis (connection name '%s')", 1],

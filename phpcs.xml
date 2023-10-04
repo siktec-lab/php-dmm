@@ -27,6 +27,8 @@
     <exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
     <exclude name="PSR12.Classes.ClassInstantiation.MissingParentheses" />
     <exclude name="PSR12.Files.ImportStatement.LeadingSlash" /> 
+    <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpaceBeforeEquals" />
+    <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterHint" />
   </rule>
 
   <!-- Specific rules -->
