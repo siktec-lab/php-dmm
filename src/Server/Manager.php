@@ -100,7 +100,7 @@ class Manager
      * @param bool $auto_connect should the connection be auto connected
      * @return Connection
      *
-     * @throws Exceptions\ConnectionException if the connection could not be established or the connection does not exist
+     * @throws Exceptions\ConnectionException connection could not be established or the connection does not exist
      *
      */
     public static function getConnection(
