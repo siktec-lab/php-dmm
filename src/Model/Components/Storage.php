@@ -49,6 +49,7 @@ class Storage
             if (!$throw) {
                 return false;
             }
+
             throw new Exceptions\ModelDeclarationException(
                 [get_class($this->ref), Attr\Connection::class],
                 151
