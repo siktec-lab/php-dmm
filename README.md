@@ -9,9 +9,8 @@
 Data Model Mapping. Another approach to ORM techniques.
 A simple and lightweight library to map data models to database tables and vice versa.
 
-<!-- ATTENTION This is in development --> 
-[!WARNING] 
-This is in development. Do not use it in production environments.
+> [!WARNING] 
+> This is in development. Do not use it in production environments.
 
 ## Installation with Composer
 
