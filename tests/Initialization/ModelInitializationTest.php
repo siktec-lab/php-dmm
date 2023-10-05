@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Siktec\Dmm\Tests\Initialization;
 
@@ -7,25 +9,28 @@ use \Siktec\Dmm\Tests\Resources;
 
 final class ModelInitializationTest extends TestCase
 {
-    
-    public static function setUpBeforeClass() : void {
+    public static function setUpBeforeClass(): void
+    {
         return;
     }
 
-    public static function tearDownAfterClass() : void {
+    public static function tearDownAfterClass(): void
+    {
         return;
     }
 
-    public function setUp() : void {
+    public function setUp(): void
+    {
         return;
     }
 
-    public function tearDown() : void {
+    public function tearDown(): void
+    {
         return;
     }
 
-    public function testSimpleConstructorInitialization() : void {
-
+    public function testSimpleConstructorInitialization(): void
+    {
         $user = new Resources\Models\SimpleUser(
             name: "bob",
             age: 15,
@@ -41,5 +46,4 @@ final class ModelInitializationTest extends TestCase
         $this->assertSame("example@bob.com", $user->email);
         $this->assertSame("Hello bob", $user->greet);
     }
-
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Siktec\Dmm\Tests\Resources\Models;
 
@@ -6,9 +6,9 @@ use Siktec\Dmm\Model\Attr;
 use Siktec\Dmm\Model;
 
 #[Attr\Connection]
-class SimpleUser extends Model\Structure {
-
-    #[Attr\Property] 
+class SimpleUser extends Model\Structure
+{
+    #[Attr\Property]
     public ?string $name = null;
 
     #[Attr\Property]
@@ -41,33 +41,21 @@ class SimpleUser extends Model\Structure {
             $this->name = $data['name'];
             $this->greet = "Hello {$this->name}";
         } else {
-            $this->state->invalid(
-                "name", "required and must be at least 3 characters long"
-            );
+            $this->state->invalid("name", "required and must be at least 3 characters long");
         }
 
         //Validate the email:
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->email = $email;
         } else {
-            $this->state->invalid(
-                "email", "required and must be a valid email address"
-            );
+            $this->state->invalid("email", "required and must be a valid email address");
         }
 
         //Validate the age:
         if (is_int($age) && $age >= 0) {
             $this->age = $age;
         } else {
-            $this->state->invalid(
-                "age", "required and must be a positive integer or 0"
-            );
+            $this->state->invalid("age", "required and must be a positive integer or 0");
         }
-
     }
-
 }
-
-
-
-

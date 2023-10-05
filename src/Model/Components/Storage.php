@@ -8,7 +8,7 @@ use \Siktec\Dmm\Model\Attr;
 
 /**
  * Class Storage
- * 
+ *
  * @package Siktec\Dmm\Model\Components
  */
 class Storage
@@ -18,9 +18,9 @@ class Storage
     public const ATTR_CONNECTION_NAME = "name";
     public const ATTR_CONNECTION_KEY  = "key";
 
-    private ?object $ref     = null;
+    private ?object $ref = null;
     private string $connection = "default";
-    private ?string $key       = null;
+    private ?string $key = null;
 
     /**
      * @param object|null $ref the class to parse
@@ -38,7 +38,7 @@ class Storage
     /**
      * Parses the class attributes
      * @param bool $throw whether to throw if the class attributes are invalid
-     * 
+     *
      * @return bool successfull parse
      */
     public function parse(bool $throw = true): bool
@@ -85,8 +85,8 @@ class Storage
     {
         $key = explode("\\", strtolower($key));
         return preg_replace(
-            "/[^a-z0-9_]/", 
-            "", 
+            "/[^a-z0-9_]/",
+            "",
             array_pop($key)
         );
     }

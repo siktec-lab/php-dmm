@@ -13,6 +13,7 @@ class ModelDeclarationException extends DmmException
         152 => ["Model '%s' has a property with multiple types (%s) which is not supported yet", 2],
         153 => ["Model '%s' has no property named '%s' of type '%s'", 3],
         154 => ["Model '%s' can't assign property '%s' of type '%s' with type '%s'", 4],
+        155 => ["Model '%s' has invalid attribute (%s) values - %s.", 3],
     ];
 
     /**

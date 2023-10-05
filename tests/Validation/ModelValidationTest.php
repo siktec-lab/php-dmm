@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Siktec\Dmm\Tests\Validation;
 
@@ -7,25 +9,28 @@ use \Siktec\Dmm\Tests\Resources;
 
 final class ModelValidationTest extends TestCase
 {
-    
-    public static function setUpBeforeClass() : void {
+    public static function setUpBeforeClass(): void
+    {
         return;
     }
 
-    public static function tearDownAfterClass() : void {
+    public static function tearDownAfterClass(): void
+    {
         return;
     }
 
-    public function setUp() : void {
+    public function setUp(): void
+    {
         return;
     }
 
-    public function tearDown() : void {
+    public function tearDown(): void
+    {
         return;
     }
 
-    public function testSimpleModelValidation() : void {
-
+    public function testSimpleModelValidation(): void
+    {
         $user = new Resources\Models\SimpleUser(
             name: "b",
             age: null,
@@ -42,5 +47,4 @@ final class ModelValidationTest extends TestCase
         $this->assertArrayHasKey("age", $validation);
         $this->assertArrayHasKey("email", $validation);
     }
-
 }
