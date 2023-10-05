@@ -47,7 +47,7 @@ trait ClassAttributesParserTrait
             $name = $property->getName();
 
             // Skip properties that are not in the list:
-            if ($properties && !in_array($name, $properties)) {
+            if (!in_array($name, $properties)) {
                 continue;
             }
 

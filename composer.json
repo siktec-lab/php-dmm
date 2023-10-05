@@ -31,6 +31,11 @@
             "Siktec\\Dmm\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Siktec\\Dmm\\Tests\\": "tests/"
+        }
+    },
     "scripts" : {
         "php-version": "php -v",
         "test": "phpunit --configuration phpunit.xml",
