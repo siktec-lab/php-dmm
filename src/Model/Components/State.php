@@ -21,7 +21,7 @@ class State
         // Loop through nested properties:
         foreach ($this->ref->_properties->getNested() as $nest) {
             if (isset($this->ref->{$nest})) {
-                $this->ref->{$nest}->_state->reset();
+                $this->ref->{$nest}->state->reset();
             }
         }
     }
@@ -56,7 +56,7 @@ class State
             }
 
             // Not loaded:
-            if (!$this->ref->{$nest}->_state->isLoaded(true, $allow_null)) {
+            if (!$this->ref->{$nest}->state->isLoaded(true, $allow_null)) {
                 return false;
             }
         }
@@ -83,7 +83,7 @@ class State
         $this->validation = [];
         foreach ($this->ref->_properties->getNested() as $nest) {
             if (isset($this->ref->{$nest})) {
-                $this->ref->{$nest}->_state->resetValidation();
+                $this->ref->{$nest}->state->resetValidation();
             }
         }
     }
@@ -93,7 +93,7 @@ class State
         $validation = $this->validation;
         foreach ($this->ref->_properties->getNested() as $nest) {
             if (isset($this->ref->{$nest})) {
-                $nest_validation = $this->ref->{$nest}->_state->validation();
+                $nest_validation = $this->ref->{$nest}->state->validation();
                 foreach ($nest_validation as $property => $errors) {
                     $key = $nest . "." . $property;
                     if (!array_key_exists($key, $validation)) {

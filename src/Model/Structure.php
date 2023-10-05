@@ -10,7 +10,7 @@ abstract class Structure implements IBaseModel
 {
     public Components\Storage $_storage;
     public Components\Properties $_properties;
-    public Components\State $_state;
+    public Components\State $state;
     public Components\Dump $_dump;
 
 
@@ -21,7 +21,7 @@ abstract class Structure implements IBaseModel
 
         $this->_properties = new Components\Properties($this, true);
 
-        $this->_state = new Components\State($this);
+        $this->state = new Components\State($this);
 
         $this->_dump = new Components\Dump($this);
 
@@ -54,9 +54,19 @@ abstract class Structure implements IBaseModel
      */
     abstract protected function load(array $data): void;
 
+    final public function isLoaded(bool $nested = true, bool $allow_null = true): bool
+    {
+        return $this->state->isLoaded($nested, $allow_null);
+    }
+
+    final public function validation(): array
+    {
+        return $this->state->validation();
+    }
+
     public function reset(): void
     {
-        $this->_state->reset();
+        $this->state->reset();
     }
 
     final public function toArray(bool $external = true, bool $generated = true, bool $nested = true): array
@@ -106,7 +116,7 @@ abstract class Structure implements IBaseModel
         }
 
         // Load the saved properties:
-        $this->_state->loaded(true);
+        $this->state->loaded(true);
         $this->load($saved);
 
         // The nested properties:
@@ -118,7 +128,7 @@ abstract class Structure implements IBaseModel
             }
         }
 
-        return $this->_state->isLoaded(); // TODO: change to isValid later
+        return $this->state->isLoaded(); // TODO: change to isValid later
     }
 
     final public function fromJson(string $data, bool $external): bool
