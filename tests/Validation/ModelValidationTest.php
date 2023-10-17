@@ -38,7 +38,7 @@ final class ModelValidationTest extends TestCase
         );
 
         // Loaded from constructor without any validation:
-        $this->assertFalse($user->isLoaded());
+        $this->assertFalse($user->isValid());
 
         $validation = $user->validation();
 

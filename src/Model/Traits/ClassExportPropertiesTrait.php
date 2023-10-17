@@ -31,7 +31,7 @@ trait ClassExportPropertiesTrait
 
     public function toArray(bool $external = true, bool $generated = true): array
     {
-        if ($this->isLoaded()) {
+        if ($this->isValid()) {
             return [];
         }
 

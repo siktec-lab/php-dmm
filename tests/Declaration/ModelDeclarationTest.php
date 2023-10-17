@@ -35,7 +35,7 @@ final class ModelDeclarationTest extends TestCase
         $user = new Resources\Models\SimpleUser();
 
         // Loaded from constructor without any validation:
-        $this->assertFalse($user->isLoaded());
+        $this->assertFalse($user->isValid());
     }
 
     public function testNoPropertiesDeclaration(): void

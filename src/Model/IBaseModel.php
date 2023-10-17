@@ -12,7 +12,7 @@ interface IBaseModel
 
     public function fromJson(string $data, bool $external): bool;
 
-    public function isLoaded(bool $nested, bool $allow_null): bool;
+    public function isValid(bool $nested, bool $allow_null): bool;
 
     public function validation(): array;
 }

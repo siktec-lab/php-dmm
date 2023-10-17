@@ -38,7 +38,7 @@ final class ModelInitializationTest extends TestCase
         );
 
         // Init from constructor without any validation:
-        $this->assertTrue($user->isLoaded());
+        $this->assertTrue($user->isValid());
 
         // Init from constructor:
         $this->assertSame("bob", $user->name);

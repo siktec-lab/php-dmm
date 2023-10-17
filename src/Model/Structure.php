@@ -54,9 +54,9 @@ abstract class Structure implements IBaseModel
      */
     abstract protected function load(array $data): void;
 
-    final public function isLoaded(bool $nested = true, bool $allow_null = true): bool
+    final public function isValid(bool $nested = true, bool $allow_null = true): bool
     {
-        return $this->state->isLoaded($nested, $allow_null);
+        return $this->state->isValid($nested, $allow_null);
     }
 
     final public function validation(): array
@@ -128,7 +128,7 @@ abstract class Structure implements IBaseModel
             }
         }
 
-        return $this->state->isLoaded(); // TODO: change to isValid later
+        return $this->state->isValid();
     }
 
     final public function fromJson(string $data, bool $external): bool

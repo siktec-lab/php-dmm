@@ -31,7 +31,7 @@ class State
         $this->loaded = $status;
     }
 
-    public function isLoaded(bool $nested = true, bool $allow_null = true): bool
+    public function isValid(bool $nested = true, bool $allow_null = true): bool
     {
         // Early return if not loaded:
         if (!$nested || !$this->loaded) {
@@ -56,7 +56,7 @@ class State
             }
 
             // Not loaded:
-            if (!$this->ref->{$nest}->state->isLoaded(true, $allow_null)) {
+            if (!$this->ref->{$nest}->state->isValid(true, $allow_null)) {
                 return false;
             }
         }
