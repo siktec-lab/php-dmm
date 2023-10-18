@@ -3,81 +3,45 @@
 namespace Siktec\Dmm\Model\Traits;
 
 use Siktec\Dmm\Internal\Std;
-use Siktec\Dmm\Model\IBaseModel;
 
 trait ClassExportPropertiesTrait
 {
-    private function propToArray(mixed $value, bool $external = true, bool $generated = true): mixed
+    /**
+     * Exports the data from the model to an array
+     *
+     * @param bool $external if true the returned data will be in the external format
+     * @param bool $generated if true the returned data will include generated properties
+     * @param bool $nested if true the returned data will include nested properties recursively
+     *
+     * @return array the data in the external or internal format
+     */
+    public function toArray(bool $external = true, bool $generated = true, bool $nested = true): array
     {
-        switch (gettype($value)) {
-            case 'object':
-                return $value instanceof IBaseModel ?
-                            $value->toArray($external, $generated, false) :
-                            Std::objectToArray($value);
-            case 'string':
-            case 'int':
-            case 'float':
-            case 'bool':
-            case 'NULL':
-                return $value;
-            case 'array':
-                return array_map(function ($item) use ($external, $generated) {
-                    return $this->propToArray($item, $external, $generated);
-                }, $value);
-            default:
-                throw new \Exception('Invalid type: ' . gettype($value));
-        }
+        return $this->_properties->values($external, $generated, $nested);
     }
 
-    public function toArray(bool $external = true, bool $generated = true): array
+    /**
+     * Exports the data from the model to a JSON string
+     *
+     * @param bool $external if true the returned data will be in the external format
+     * @param bool $generated if true the returned data will include generated properties
+     * @param bool $nested if true the returned data will include nested properties recursively
+     * @param bool $pretty if true the returned JSON string will be pretty formated (indented) 
+     *
+     * @return string the data in the external or internal format
+     */
+    public function toJson(
+        bool $external = true,
+        bool $generated = true,
+        bool $nested = true,
+        bool $pretty = false
+    ): string
     {
-        if ($this->isValid()) {
-            return [];
-        }
-
-        $export = [];
-
-        foreach ($this->properties() as $in_name => $ex_name) {
-            if (!$generated && in_array($in_name, $this->generated)) {
-                continue;
-            }
-            $property = $this->{$in_name};
-            $export[
-                $external ? $ex_name : $in_name
-            ] = $this->propToArray($property, $external, $generated);
-        }
-
-        return $export;
-    }
-
-    public function toJson(bool $external = true, bool $generated = true): string
-    {
-        return json_encode($this->toArray($external, $generated));
-    }
-
-    // JsonSerializable
-    public function jsonSerialize(): array
-    {
-        return $this->toArray(true, true);
-    }
-
-    public function fromArray(array $data, bool $external = true): bool
-    {
-        $data = array_intersect_key(
-            $external ? $this->translate($data, false) : $data,
-            $this->map["in_out"]
+        [, $str] = Std::safeJsonEncode(
+            data : $this->toArray($external, $generated, $nested),
+            throw : true,
+            pretty : $pretty
         );
-        $this->loaded = $this->load($data);
-        return $this->loaded;
-    }
-
-    // unserialize from json
-    public function fromJson(string $json, bool $external = true): bool
-    {
-        $data = json_decode($json, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \Exception('Invalid json: ' . json_last_error_msg());
-        }
-        return $this->fromArray($data, $external);
+        return $str;
     }
 }

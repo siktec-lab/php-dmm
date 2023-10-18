@@ -3,17 +3,30 @@
 namespace Siktec\Dmm\Model;
 
 use \Siktec\Dmm\Exceptions;
+use \Siktec\Dmm\Model\Traits;
 use Siktec\Dmm\Internal\Std;
 use Siktec\Dmm\Model\Components;
 
 abstract class Structure implements IBaseModel
 {
+
+    /**
+     * Helper and implementation Traits:
+     */
+    use Traits\ClassExportPropertiesTrait;
+    use Traits\ClassStateHelpersTrait;
+
+    /**
+     * Internal components:
+     */
     public Components\Storage $_storage;
     public Components\Properties $_properties;
     public Components\State $state;
     public Components\Dump $_dump;
 
-
+    /**
+     * @param array $values initial values for the model
+     */
     public function __construct(array $values)
     {
 
@@ -54,44 +67,14 @@ abstract class Structure implements IBaseModel
      */
     abstract protected function load(array $data): void;
 
-    final public function isValid(bool $nested = true, bool $allow_null = true): bool
-    {
-        return $this->state->isValid($nested, $allow_null);
-    }
 
-    final public function validation(): array
-    {
-        return $this->state->validation();
-    }
-
-    public function reset(): void
-    {
-        $this->state->reset();
-    }
-
-    final public function toArray(bool $external = true, bool $generated = true, bool $nested = true): array
-    {
-        return $this->_properties->values($external, $generated, $nested);
-    }
-
-    final public function toJson(
-        bool $external  = true,
-        bool $generated = true,
-        bool $nested    = true,
-        bool $pretty    = false
-    ): string {
-        [, $str] = Std::safeJsonEncode(
-            data : $this->toArray($external, $generated, $nested),
-            throw : true,
-            pretty : $pretty
-        );
-        return $str;
-    }
-
+    /**
+     * @inheritDoc
+     */
     final public function fromArray(array $data, bool $external = true): bool
     {
 
-        $this->reset();
+        $this->state->reset();
 
         // Always translate the data to internal format:
         if ($external) {
@@ -131,7 +114,10 @@ abstract class Structure implements IBaseModel
         return $this->state->isValid();
     }
 
-    final public function fromJson(string $data, bool $external): bool
+    /**
+     * @inheritDoc
+     */
+    final public function fromJson(string $data, bool $external = true): bool
     {
         return $this->fromArray(
             data : json_decode($data, true),
