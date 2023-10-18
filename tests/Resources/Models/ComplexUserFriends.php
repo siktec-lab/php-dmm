@@ -6,7 +6,7 @@ use Siktec\Dmm\Model\Attr;
 use Siktec\Dmm\Model;
 
 #[Attr\Connection(name: 'main')]
-class User extends Model\Structure
+class ComplexUserFriends extends Model\Structure
 {
     #[Attr\Property]
     public ?string $name;
@@ -21,7 +21,7 @@ class User extends Model\Structure
     public bool $too_young; // This property will not be saved its calculated
 
     #[Attr\Property]
-    public ?User $friend;
+    public ?ComplexUserFriends $friend;
 
     #[Attr\Property]
     public array $names = [];
@@ -35,7 +35,7 @@ class User extends Model\Structure
         ?string $name          = null,
         ?int    $numerical_age = null,
         ?string $email_address = null,
-        ?User   $friend        = null,
+        ?ComplexUserFriends   $friend        = null,
         ?array  $names         = null
     ) {
         parent::__construct(get_defined_vars());
