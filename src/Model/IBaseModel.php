@@ -2,7 +2,7 @@
 
 namespace Siktec\Dmm\Model;
 
-interface IBaseModel
+interface IBaseModel extends \JsonSerializable
 {
 
     /**

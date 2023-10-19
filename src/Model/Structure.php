@@ -124,4 +124,9 @@ abstract class Structure implements IBaseModel
             external : $external
         );
     }
+
+    final public function jsonSerialize(): mixed
+    {
+        return $this->toArray(true, true, true);
+    }
 }
