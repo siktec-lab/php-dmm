@@ -8,7 +8,7 @@ use Siktec\Dmm\Model;
 #[Attr\Connection]
 class SimpleUser extends Model\Structure
 {
-    #[Attr\Property]
+    #[Attr\Property(index : 'primary')]
     public ?string $name = null;
 
     #[Attr\Property]
