@@ -15,13 +15,15 @@ class Properties
     public const ATTR_PROPERTY_NAME = "name";
 
     private ?object $ref        = null;
-    private int $total        = 0;
+    private int $total          = 0;
     private array $properties   = [];
     private array $in_out       = [];
     private array $out_in       = [];
     private array $saved        = [];
     private array $generated    = [];
     private array $nested       = [];
+    private array $indexes      = [];
+    private string $primary     = "";
 
     public function __construct(?object $ref = null, bool $parse = true)
     {
@@ -39,9 +41,24 @@ class Properties
         $internal_names  = array_keys($attr_properties);
         $properties = $this->extractClassProperties($internal_names, $this->ref);
 
-        // Naming maps:
+        // Naming maps and indexes:
         foreach ($attr_properties as $in => $values) {
+
             $this->in_out[$in] = $values[self::ATTR_PROPERTY_NAME] ?: $in;
+            
+            if ($values["index"] !== "none") {
+                $this->indexes[$in] = $values["index"];
+            }
+
+            if ($values["index"] === "primary") {
+                if ($this->primary) {
+                    throw new Exceptions\ModelDeclarationException(
+                        [get_class($this->ref), $in.','.$this->primary],
+                        156
+                    );
+                }
+                $this->primary = $in;
+            }
         }
 
         $this->total        = count($properties);
@@ -121,6 +138,12 @@ class Properties
         return in_array($name, $this->saved);
     }
 
+    public function isPrimary(string $name, bool $external = false): bool
+    {
+        $name = $external ? $this->toInternal($name) : $name;
+        return $this->primary === $name;
+    }
+
     public function isGenerated(string $name, bool $external = false): bool
     {
         $name = $external ? $this->toInternal($name) : $name;
@@ -131,6 +154,16 @@ class Properties
     {
         $name = $external ? $this->toInternal($name) : $name;
         return $this->properties[$name]["nested"];
+    }
+
+    public function getPrimary(): string
+    {
+        return $this->primary;
+    }
+
+    public function getIndexes(): array
+    {
+        return $this->indexes;
     }
 
     public function getSaved(): array
@@ -282,16 +315,30 @@ class Properties
         );
     }
 
+    public function isIndex(string $name, bool $external = false): bool|string
+    {
+        $name = $external ? $this->toInternal($name) : $name;
+        return $this->indexes[$name] ?? false;
+    }
+
+    public function isUnique(string $name, bool $external = false): bool
+    {
+        $name = $external ? $this->toInternal($name) : $name;
+        return $this->indexes[$name] === "unique";
+    }
+
     public function __toString()
     {
         $str = [];
         $i = 0;
         foreach ($this->properties as $internal => $property) {
             $external = $this->toExternal($internal);
+            $index = $this->isIndex($internal) ?: "";
             $str[] = "\n\t\t" . (++$i) .
                             ") [{$property["type"]}]" .
                             ": {$internal} => {$external}" .
                             ($this->isSaved($internal) ? " (saved)" : "") .
+                            ($index ? " (*{$index})" : "") .
                             ($this->isGenerated($internal) ? " (generated)" : "") .
                             ($this->isNested($internal) ? " (nested)" : "");
         }
