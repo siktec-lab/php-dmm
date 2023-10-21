@@ -46,6 +46,14 @@ abstract class Structure implements IBaseModel
             );
         }
 
+        // A primary key is required:
+        if (!$this->_properties->getPrimary()) {
+            throw new Exceptions\ModelDeclarationException(
+                [get_class($this)],
+                157
+            );
+        }
+        
         // Load the data into the model if any is provided:
         $filtered = $this->_properties->filter($values);
 

@@ -14,6 +14,8 @@ class ModelDeclarationException extends DmmException
         153 => ["Model '%s' has no property named '%s' of type '%s'", 3],
         154 => ["Model '%s' can't assign property '%s' of type '%s' with type '%s'", 4],
         155 => ["Model '%s' has invalid attribute (%s) values - %s.", 3],
+        156 => ["Model '%s' has several primary keys (%s) which is not supported", 2],
+        157 => ["Model '%s' has no primary key which is not supported", 1],
     ];
 
     /**
