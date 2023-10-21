@@ -7,7 +7,7 @@ use Siktec\Dmm\Model;
 
 class MissingConnectionModel extends Model\Structure
 {
-    #[Attr\Property("name")]
+    #[Attr\Property(name : "name", index : 'primary')]
     public string $name = "bob";
 
     public function __construct(

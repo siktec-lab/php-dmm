@@ -8,7 +8,7 @@ use Siktec\Dmm\Model;
 #[Attr\Connection(name: "primary")]
 class MultipleTypesOfSamePropertyModel extends Model\Structure
 {
-    #[Attr\Property]
+    #[Attr\Property(index : 'primary')]
     public string|int $name = "bob";
 
     public function __construct(

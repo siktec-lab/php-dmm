@@ -8,7 +8,7 @@ use Siktec\Dmm\Model;
 #[Attr\Connection(name: "", key: null)]
 class InvalidConnectionValuesModel extends Model\Structure
 {
-    #[Attr\Property("name")]
+    #[Attr\Property(name : "name", index : 'primary')]
     public string $name = "bob";
 
     public function __construct(

@@ -8,7 +8,7 @@ use Siktec\Dmm\Model;
 #[Attr\Connection(name: 'main')]
 class ComplexUserFriends extends Model\Structure
 {
-    #[Attr\Property]
+    #[Attr\Property(index : 'primary')]
     public ?string $name;
 
     #[Attr\Property(name: 'age')]
